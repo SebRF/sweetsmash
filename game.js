@@ -18,11 +18,15 @@ window.onload = function() {
       width: gameOptions.fieldSize * gameOptions.gemSize,
       height: gameOptions.fieldSize * gameOptions.gemSize
     },
-    scene: [playGame] // Add your scene here
+    scene: [playGame], // Notice the comma here
     callbacks: {
       postBoot: function (game) {
-        // Attempt to go full screen with the first user interaction
-        game.scale.startFullscreen();
+        // This will be called after the game is initialized
+        game.canvas.addEventListener('touchstart', function () {
+          if (!game.scale.isFullscreen) {
+            game.scale.startFullscreen();
+          }
+        }, false);
       }
     }
   };
@@ -32,14 +36,7 @@ window.onload = function() {
   window.addEventListener("resize", resizeGame);
   window.addEventListener("orientationchange", resizeGame);
   document.body.addEventListener("touchstart", preventDefaultTouchActions, { passive: false });
-
 };
-  // Fullscreen handling
-  game.canvas.addEventListener('touchstart', function () {
-    if (!game.scale.isFullscreen) {
-      game.scale.startFullscreen();
-    }
-  }, false);
 
 function resizeGame() {
   var canvas = game.canvas;
