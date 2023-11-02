@@ -20,7 +20,7 @@ window.onload = function() {
   }
   game = new Phaser.Game(gameConfig);
   window.focus()
-  resize(){
+  resize() {
     var canvas = game.canvas, width = window.innerWidth, height = window.innerHeight;
     var wratio = width / height, ratio = canvas.width / canvas.height;
 
@@ -30,7 +30,8 @@ window.onload = function() {
     } else {
       canvas.style.height = height + "px";
       canvas.style.width = (height * ratio) + "px";
-    };
+    }
+  };
   window.addEventListener("resize", resize, false);
     window.addEventListener("orientationchange", function() {
       game.scale.refresh();
