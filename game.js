@@ -20,7 +20,7 @@ window.onload = function() {
   }
   game = new Phaser.Game(gameConfig);
   window.focus()
-  resize() {
+  function resize() {
     var canvas = game.canvas, width = window.innerWidth, height = window.innerHeight;
     var wratio = width / height, ratio = canvas.width / canvas.height;
 
