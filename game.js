@@ -22,9 +22,10 @@ window.onload = function() {
   };
 
   game = new Phaser.Game(gameConfig);
-  resizeGame(); // Call resize function to initially resize the game
+  resizeGame();
   window.addEventListener("resize", resizeGame);
   window.addEventListener("orientationchange", resizeGame);
+  document.body.addEventListener("touchstart", preventDefaultTouchActions, { passive: false });
 };
 
 function resizeGame() {
@@ -43,15 +44,20 @@ function resizeGame() {
   }
 }
 
-// Prevent default touch actions
-document.body.addEventListener("touchstart", function(e) {
+function preventDefaultTouchActions(e) {
   e.preventDefault();
-}, { passive: false });
+}
 
-window.addEventListener("resize", resize, false);
-    window.addEventListener("orientationchange", function() {
-      game.scale.refresh();
-    });
+// Fullscreen handling
+game.canvas.addEventListener('touchstart', function () {
+  if (!game.scale.isFullscreen) {
+    game.scale.startFullscreen();
+  }
+}, false);
+
+// Define constants for directions
+const HORIZONTAL = 1;
+const VERTICAL = 2;
 
 class playGame extends Phaser.Scene{
   constructor(){
