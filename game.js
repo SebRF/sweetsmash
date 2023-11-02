@@ -26,6 +26,13 @@ window.onload = function() {
   window.addEventListener("resize", resizeGame);
   window.addEventListener("orientationchange", resizeGame);
   document.body.addEventListener("touchstart", preventDefaultTouchActions, { passive: false });
+
+  // Fullscreen handling
+  game.canvas.addEventListener('touchstart', function () {
+    if (!game.scale.isFullscreen) {
+      game.scale.startFullscreen();
+    }
+  }, false);
 };
 
 function resizeGame() {
@@ -47,14 +54,6 @@ function resizeGame() {
 function preventDefaultTouchActions(e) {
   e.preventDefault();
 }
-
-// Fullscreen handling
-game.canvas.addEventListener('touchstart', function () {
-  if (!game.scale.isFullscreen) {
-    game.scale.startFullscreen();
-  }
-}, false);
-
 // Define constants for directions
 const HORIZONTAL = 1;
 const VERTICAL = 2;
@@ -404,29 +403,6 @@ class playGame extends Phaser.Scene{
     }
     return result;
   }
-}function resize() {
-  var canvas = document.querySelector("canvas");
-  var windowWidth = window.innerWidth;
-  var windowHeight = window.innerHeight;
-  var windowRatio = windowWidth / windowHeight;
-  var gameRatio = game.config.width / game.config.height;
-  if(windowRatio < gameRatio){
-    canvas.style.width = windowWidth + "px";
-    canvas.style.height = (windowWidth / gameRatio) + "px";
-  }
-  else{
-    canvas.style.width = (windowHeight * gameRatio) + "px";
-    canvas.style.height = windowHeight + "px";
-  }
 }
-this.game.canvas.addEventListener('touchstart', function () {
-  if (!this.game.scale.isFullscreen) {
-    this.game.scale.startFullscreen();
-  }
-}, false);
-
-  document.body.addEventListener("touchstart", function(e) {
-    e.preventDefault();
-  });
 
 
