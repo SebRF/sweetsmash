@@ -6,32 +6,48 @@ let gameOptions = {
   swapSpeed: 200,
   fallSpeed: 100,
   destroySpeed: 200
-}
-const HORIZONTAL = 1;
-const VERTICAL = 2;
+};
+
 window.onload = function() {
   let gameConfig = {
+    type: Phaser.AUTO,
     scale: {
-      mode: Phaser.Scale.RESIZE,
+      mode: Phaser.Scale.FIT,
       parent: 'phaser-game',
-      width: '100%',
-      height: '100%'
-    }
-  }
-  game = new Phaser.Game(gameConfig);
-  window.focus()
-  function resize() {
-    var canvas = game.canvas, width = window.innerWidth, height = window.innerHeight;
-    var wratio = width / height, ratio = canvas.width / canvas.height;
-
-    if (wratio < ratio) {
-      canvas.style.width = width + "px";
-      canvas.style.height = (width / ratio) + "px";
-    } else {
-      canvas.style.height = height + "px";
-      canvas.style.width = (height * ratio) + "px";
-    }
+      autoCenter: Phaser.Scale.CENTER_BOTH,
+      width: gameOptions.fieldSize * gameOptions.gemSize,
+      height: gameOptions.fieldSize * gameOptions.gemSize
+    },
+    scene: [playGame] // Add your scene here
   };
+
+  game = new Phaser.Game(gameConfig);
+  resizeGame(); // Call resize function to initially resize the game
+  window.addEventListener("resize", resizeGame);
+  window.addEventListener("orientationchange", resizeGame);
+};
+
+function resizeGame() {
+  var canvas = game.canvas;
+  var windowWidth = window.innerWidth;
+  var windowHeight = window.innerHeight;
+  var windowRatio = windowWidth / windowHeight;
+  var gameRatio = game.config.width / game.config.height;
+
+  if (windowRatio < gameRatio) {
+    canvas.style.width = windowWidth + "px";
+    canvas.style.height = (windowWidth / gameRatio) + "px";
+  } else {
+    canvas.style.width = (windowHeight * gameRatio) + "px";
+    canvas.style.height = windowHeight + "px";
+  }
+}
+
+// Prevent default touch actions
+document.body.addEventListener("touchstart", function(e) {
+  e.preventDefault();
+}, { passive: false });
+
   window.addEventListener("resize", resize, false);
     window.addEventListener("orientationchange", function() {
       game.scale.refresh();
