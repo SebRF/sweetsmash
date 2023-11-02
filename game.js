@@ -48,11 +48,11 @@ document.body.addEventListener("touchstart", function(e) {
   e.preventDefault();
 }, { passive: false });
 
-  window.addEventListener("resize", resize, false);
+window.addEventListener("resize", resize, false);
     window.addEventListener("orientationchange", function() {
       game.scale.refresh();
     });
-  }
+
 class playGame extends Phaser.Scene{
   constructor(){
     super("PlayGame");
