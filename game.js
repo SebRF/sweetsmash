@@ -22,6 +22,7 @@ window.onload = function() {
     callbacks: {
       postBoot: function (game) {
         // This will be called after the game is initialized
+        game.canvas.style.touchAction = 'none'; // Prevent the browser from doing its default touch action
         game.canvas.addEventListener('touchstart', function () {
           if (!game.scale.isFullscreen) {
             game.scale.startFullscreen();
