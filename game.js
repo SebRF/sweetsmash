@@ -22,7 +22,6 @@ window.onload = function() {
     callbacks: {
       postBoot: function (game) {
         // This will be called after the game is initialized
-        game.canvas.style.touchAction = 'none'; // Prevent the browser from doing its default touch action
         game.canvas.addEventListener('touchstart', function () {
           if (!game.scale.isFullscreen) {
             game.scale.startFullscreen();
@@ -80,15 +79,6 @@ class playGame extends Phaser.Scene{
     this.input.on("pointerdown", this.gemSelect, this);
     this.input.on("pointermove", this.startSwipe, this);
     this.input.on("pointerup", this.stopSwipe, this);
-    let fullscreenButton = this.add.text(10, 10, 'Fullscreen', { font: '16px Arial', fill: '#000000' });
-    fullscreenButton.setInteractive();
-    fullscreenButton.on('pointerup', () => {
-      if (!this.scale.isFullscreen) {
-        this.scale.startFullscreen();
-      } else {
-        this.scale.stopFullscreen();
-      }
-    });
   }
   drawField(){
     this.gameArray = [];
