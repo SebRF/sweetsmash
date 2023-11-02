@@ -19,6 +19,12 @@ window.onload = function() {
       height: gameOptions.fieldSize * gameOptions.gemSize
     },
     scene: [playGame] // Add your scene here
+    callbacks: {
+      postBoot: function (game) {
+        // Attempt to go full screen with the first user interaction
+        game.scale.startFullscreen();
+      }
+    }
   };
 
   game = new Phaser.Game(gameConfig);
@@ -27,13 +33,13 @@ window.onload = function() {
   window.addEventListener("orientationchange", resizeGame);
   document.body.addEventListener("touchstart", preventDefaultTouchActions, { passive: false });
 
+};
   // Fullscreen handling
   game.canvas.addEventListener('touchstart', function () {
     if (!game.scale.isFullscreen) {
       game.scale.startFullscreen();
     }
   }, false);
-};
 
 function resizeGame() {
   var canvas = game.canvas;
